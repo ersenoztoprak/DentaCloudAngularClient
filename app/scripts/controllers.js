@@ -32,6 +32,10 @@ angular.module('dentaCloudApp')
         $scope.loggedIn = AuthFactory.isAuthenticated();
         $scope.username = AuthFactory.getUsername();
     });
+
+     $scope.stateis = function(curstate) {
+       return $state.is(curstate);  
+    };
     
 }])
 
@@ -59,6 +63,23 @@ angular.module('dentaCloudApp')
         	controller:"RegisterController" 
         });
     }; 
+}])
+
+.controller('HomeController', ['$scope', 'HomeFactory',  function ($scope, HomeFactory) {
+    $scope.message = "Loading ...";
+    
+
+	HomeFactory.query(
+        function (response) {
+            $scope.schedules = response;
+        },
+        function (response) {
+            $scope.message = "Error: " + response.status + " " + response.statusText;
+        });
+
+    console.log('marmar: ' + $scope.schedules);
+    console.log('mesaj: ' + $scope.message);
+    
 }])
 
 .controller('RegisterController', ['$scope', 'ngDialog', '$localStorage', 'AuthFactory', function ($scope, ngDialog, $localStorage, AuthFactory) {

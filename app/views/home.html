@@ -1,0 +1,40 @@
+ <div class="container">
+
+        <div class="row row-content">
+            <div class="col-xs-12 col-sm-9">
+                <h2>Upcoming Schedules of The Week</h2>
+                <div class="table-responsive">
+	                <table class="table table-striped">
+	                    <tr>
+	                        <th>
+	                            When
+	                        </th>
+	                        <th>
+	                            Customer
+	                        </th>
+	                        <th>
+	                            Staff
+	                        </th>
+	                        <th>
+	                            Service
+	                        </th>
+	                    </tr>
+	                    <tbody>
+                			<tr ng-repeat="schedule in schedules">
+                    			
+                    			<td>{{schedule.date * 1000 | date:'dd-MM-yyyy HH:mm'}}</td>
+                    			<td>{{schedule.customer.firstName}} {{schedule.customer.lastName}}</td>
+                    			<td>{{schedule.staff.firstName}} {{schedule.staff.lastName}}</td>
+                    			<td>{{schedule.service.name}}</td>
+                    			
+                			</tr>
+            			</tbody>
+	                    
+	                </table>
+                </div>
+            </div>
+             <div class="col-xs-12 col-sm-3">
+                <p style="padding:20px;"></p>
+            </div>
+       </div> 
+    </div>

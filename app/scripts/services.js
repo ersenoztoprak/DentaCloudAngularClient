@@ -137,4 +137,15 @@ angular.module('dentaCloudApp')
     return authFac;
     
 }])
+
+.factory('HomeFactory', ['$resource', 'baseURL', function($resource, baseURL) {
+
+	return $resource(baseURL + "appoitments", null, {
+            'update': {
+                method: 'PUT'
+            }
+        });
+
+
+}])
 ;
