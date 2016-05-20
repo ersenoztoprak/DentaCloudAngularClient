@@ -22,6 +22,12 @@ angular.module('dentaCloudApp')
         });
     };
 
+    $scope.logOut = function() {
+    	AuthFactory.logout();
+        $scope.loggedIn = false;
+        $scope.username = '';
+    };
+
      $rootScope.$on('login:Successful', function () {
         $scope.loggedIn = AuthFactory.isAuthenticated();
         $scope.username = AuthFactory.getUsername();
@@ -44,10 +50,30 @@ angular.module('dentaCloudApp')
         ngDialog.close();
 
     };
+
+    $scope.openRegister = function () {
+        ngDialog.open({ 
+        	template: 'views/register.html', 
+        	scope: $scope, 
+        	className: 'ngdialog-theme-default', 
+        	controller:"RegisterController" 
+        });
+    }; 
+}])
+
+.controller('RegisterController', ['$scope', 'ngDialog', '$localStorage', 'AuthFactory', function ($scope, ngDialog, $localStorage, AuthFactory) {
     
-            
-   
+    $scope.register={};
+    $scope.loginData={};
     
+    $scope.doRegister = function() {
+        console.log('Doing registration', $scope.registration);
+
+        AuthFactory.register($scope.registration);
+        
+        ngDialog.close();
+
+    };
 }])
 
 
