@@ -31,6 +31,14 @@ angular.module('dentaCloudApp')
     var username = '';
     var authToken = undefined;
     
+  function useCredentials(credentials) {
+    isAuthenticated = true;
+    username = credentials.username;
+    authToken = credentials.token;
+ 
+    // Set the token as header for your requests!
+    $http.defaults.headers.common['x-access-token'] = authToken;
+  } 
 
   function loadUserCredentials() {
     var credentials = $localStorage.getObject(TOKEN_KEY,'{}');
@@ -42,15 +50,6 @@ angular.module('dentaCloudApp')
   function storeUserCredentials(credentials) {
     $localStorage.storeObject(TOKEN_KEY, credentials);
     useCredentials(credentials);
-  }
- 
-  function useCredentials(credentials) {
-    isAuthenticated = true;
-    username = credentials.username;
-    authToken = credentials.token;
- 
-    // Set the token as header for your requests!
-    $http.defaults.headers.common['x-access-token'] = authToken;
   }
 
   function destroyUserCredentials() {
@@ -111,9 +110,8 @@ angular.module('dentaCloudApp')
            },
            function(response){
             
-              var message = '\
-                <div class="ngdialog-message">\
-                <div><h3>Registration Unsuccessful</h3></div>' +
+              var message = '<div class="ngdialog-message">' +
+                '<div><h3>Registration Unsuccessful</h3></div>' +
                   '<div><p>' +  response.data.err.message + 
                   '</p><p>' + response.data.err.name + '</p></div>';
 
@@ -145,6 +143,71 @@ angular.module('dentaCloudApp')
                 method: 'PUT'
             }
         });
+
+
+}])
+
+.factory('CustomerFactory', ['$resource', 'baseURL', function($resource, baseURL) {
+
+	return $resource(baseURL + "customers", null, {
+            'update': {
+                method: 'PUT'
+            }
+        });
+
+
+}])
+
+.factory('ServiceFactory', ['$resource', 'baseURL', function($resource, baseURL) {
+
+	return $resource(baseURL + "services", null, {
+            'update': {
+                method: 'PUT'
+            }
+        });
+
+
+}])
+
+.factory('StaffFactory', ['$resource', 'baseURL', function($resource, baseURL) {
+
+	return $resource(baseURL + "staffs", null, {
+            'update': {
+                method: 'PUT'
+            }
+        });
+
+
+}])
+
+.factory('AppoitmnetFactory', ['$resource', 'ngDialog', 'baseURL', function($resource, ngDialog, baseURL) {
+
+	var appFac = {};
+
+	appFac.book = function(appoitmentData) {
+
+        $resource(baseURL + "appoitments")
+        .save(appoitmentData,
+           function(response) {
+           		   
+           	ngDialog.openConfirm({ template: 'Sikert', plain: 'true'});
+             
+           },
+           function(response){
+            
+              var message = '<div class="ngdialog-message">' +
+                '<div><h3>Booking Unsuccessful</h3></div>' +
+                  '<div><p>' +  response.data.err.message + 
+                  '</p><p>' + response.data.err.name + '</p></div>';
+
+                ngDialog.openConfirm({ template: message, plain: 'true'});
+
+           }
+        
+        );
+    };
+
+    return appFac;
 
 
 }])
