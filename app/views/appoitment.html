@@ -5,44 +5,48 @@
     
     <div class="">&nbsp;</div>
         <div class="">
-            <form ng-submit="bookAppoitment()">
-                <div class="form-group">
+            <form role = "form" name = "appForm" ng-submit="bookAppoitment()">
+                 <div class="form-group" ng-class="{ 'has-error' : appForm.staff.$error.required && !appForm.staff.$pristine }">
                     <label class="sr-only" for="staff">Staff</label>
-                    <select id = "staff" name="staff" ng-model="appoitment.staff">
+                    <select id = "staff" name="staff" ng-model="appoitment.staff" required>
                         <option value="">Select Staff</option>
                         <option ng:repeat="staff in staffs" value="{{staff._id}}">{{staff.firstName}} {{staff.lastName}}</option>
                     </select>
+                    <span ng-show="appForm.staff.$error.required && !appForm.staff.$pristine" class="help-block">Staff is required.</span>
                  </div>
                  
-                 <div class="form-group">   
+                 <div class="form-group" ng-class="{ 'has-error' : appForm.service.$error.required && !appForm.service.$pristine }">   
                     <label class="sr-only" for="service">Service</label>
-                    <select id = "service" name="service" ng-model="appoitment.service">
+                    <select id = "service" name="service" ng-model="appoitment.service" required>
                         <option value="">Select Service</option>
                         <option ng:repeat="service in services" value="{{service._id}}">{{service.name}}</option>
                     </select>
+                    <span ng-show="appForm.service.$error.required && !appForm.service.$pristine" class="help-block">Service is required.</span>
                  </div> 
                  
-                 <div class="form-group">  
+                 <div class="form-group" ng-class="{ 'has-error' : appForm.customer.$error.required && !appForm.customer.$pristine }">  
                     <label class="sr-only" for="customer">Customer</label>
-                    <select id = "customer" name="customer" ng-model="appoitment.customer">
+                    <select id = "customer" name="customer" ng-model="appoitment.customer" required>
                         <option value="">Select Customer</option>
                         <option ng:repeat="customer in customers" value="{{customer._id}}">{{customer.firstName}} {{customer.lastName}}</option>
-                    </select>  
+                    </select>
+                    <span ng-show="appForm.customer.$error.required && !appForm.customer.$pristine" class="help-block">Customer is required.</span>  
                  </div>
                  
-                 <div class="form-group">   
+                 <div class="form-group" ng-class="{ 'has-error' : appForm.date.$error.required && !appForm.date.$pristine }">   
                    <label class="sr-only" for="date">When</label> 
                    <input type="datetime-local" id="date" name="date" ng-model="appoitment.date"
-                    placeholder="yyyy-MM-ddTHH:mm" />
-                </div>
+                    placeholder="yyyy-MM-ddTHH:mm" required/>
+                    <span ng-show="appForm.date.$error.required && !appForm.date.$pristine" class="help-block">Date is required.</span>
+                 </div>
 
-                <div class="form-group"> 
+                 <div class="form-group"> 
                     <label class="sr-only" for="note">Note</label>
                     <textarea id = "note" placeholder = 'Enter note if needed...' ng-model="appoitment.note"></textarea>
-                </div>    
+                 </div>    
                 
-                <button type="submit" class="btn btn-info btn-sm">Book</button>
-                <button type="button" class="btn btn-default btn-sm" ng-click=closeThisDialog("Cancel")>Cancel</button>
+                 <button type="submit" class="btn btn-info btn-sm" ng-disabled="appForm.$invalid">Book</button>
+                 <button type="button" class="btn btn-default btn-sm" ng-click=closeThisDialog("Cancel")>Cancel</button>
             </form>
         </div>
 </div>
