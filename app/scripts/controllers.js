@@ -88,7 +88,7 @@ angular.module('dentaCloudApp')
     
 }])
 
-.controller('AppoitmnetController', ['$state', '$scope', 'ngDialog', 'StaffFactory', 'ServiceFactory', 'CustomerFactory', 'AppoitmnetFactory', function($state, $scope, ngDialog, StaffFactory, ServiceFactory, CustomerFactory, AppoitmnetFactory) {
+.controller('AppoitmnetController', ['$state', '$scope', 'ngDialog', 'StaffFactory', 'ServiceFactory', 'CustomerService', 'AppoitmnetFactory', function($state, $scope, ngDialog, StaffFactory, ServiceFactory, CustomerService, AppoitmnetFactory) {
 
 	$scope.now = new Date();
 
@@ -108,13 +108,10 @@ angular.module('dentaCloudApp')
             $scope.message = "Error: " + response.status + " " + response.statusText;
         });
 
-	CustomerFactory.query(
-        function (response) {
-            $scope.customers = response;
-        },
-        function (response) {
-            $scope.message = "Error: " + response.status + " " + response.statusText;
-        });
+
+    CustomerService.list().then(function(response) {
+            $scope.customers = response.data;
+    });
 
 
 	$scope.bookAppoitment = function() {
@@ -138,6 +135,39 @@ angular.module('dentaCloudApp')
         ngDialog.close();
 
     };
+}])
+
+.controller('CustomerController', ['$scope', '$ngDialog', 'CustomerService', function($scope, ngDialog, CustomerService) {
+	  
+	$scope.customers = [];
+
+    $scope.reloadCustomers = function() {
+        CustomerService.list().then(function(response) {
+            $scope.customers = response.data;
+        });
+    };
+
+    $scope.deleteCustomer = function(customer) {
+
+        CustomerService.delete(customer._id).then(function() {
+            var idx = $scope.customers.indexOf(customer);
+            if (idx >= 0) {
+                $scope.customers = $scope.customers.splice(idx, 1);
+            }
+        });
+    };
+
+    $scope.openCustomerDialog = function () {
+        ngDialog.open({ 
+            template: 'views/customerDetail.html', 
+            scope: $scope, 
+            className: 'ngdialog-theme-default', 
+            controller:"CustomerDetailController" 
+        });
+    };
+
+    $scope.reloadCustomers();
+	
 }])
 
 

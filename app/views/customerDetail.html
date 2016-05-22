@@ -1,0 +1,42 @@
+<div class="ngdialog-message">
+    <div class="">
+        <h3>Customer Card</h3>
+    </div>
+    
+    <div class="">&nbsp;</div>
+    
+    
+
+        <div class="">
+            <form role = "form" name = "customerForm" >
+                 <div class="form-group" ng-class="{ 'has-error' : customerForm.firstname.$error.required && !customerForm.firstname.$pristine }">
+                    <label class="sr-only" for="name">First Name</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter First Name"
+                        ng-model="customer.firstName" required>
+                    <span ng-show="customerForm.firstName.$error.required && !customerForm.firstName.$pristine" class="help-block">Firstname is required.</span>
+                 </div>
+                 
+                 <div class="form-group" ng-class="{ 'has-error' : customerForm.lastname.$error.required && !customerForm.lastname.$pristine }">
+                    <label class="sr-only" for="name">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Last Name"
+                        ng-model="customer.lastName" required>
+                    <span ng-show="customerForm.lastName.$error.required && !customerForm.lastName.$pristine" class="help-block">Lastname is required.</span>
+                 </div>
+                 
+                 
+
+                 <div class="form-group"  ng-class="{ 'has-error has-feedback' : customerForm.emailid.$invalid && !customerForm.emailid.$pristine }">
+                    <label for="emailid" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="emailid" name="emailid" placeholder="Email" ng-model="customer.email" required>
+                            <span ng-show="feedbackForm.emailid.$invalid && !feedbackForm.emailid.$pristine" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                            <span ng-show="feedbackForm.emailid.$invalid && !feedbackForm.emailid.$pristine" class="help-block">Enter a valid email address.</span>
+                            <span ng-show="feedbackForm.emailid.$error.required && !feedbackForm.emailid.$pristine" class="help-block">Enter a valid email address.</span>
+                        </div>
+                 </div>   
+                
+                 <button type="submit" class="btn btn-info btn-sm" ng-disabled="customerForm.$invalid">Save</button>
+                 <button type="button" class="btn btn-default btn-sm" ng-click=closeThisDialog("Cancel")>Cancel</button>
+            </form>
+        </div>
+</div>

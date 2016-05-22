@@ -18,6 +18,17 @@ angular.module('dentaCloudApp', ['ui.router','ngResource','ngDialog'])
                     },
                 }
 
+            })
+
+            // route for the aboutus page
+            .state('app.customer', {
+                url:'customers',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/customer.html',
+                        controller  : 'CustomerController'                  
+                    }
+                }
             });
         
            

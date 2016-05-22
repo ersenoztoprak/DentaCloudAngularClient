@@ -211,4 +211,36 @@ angular.module('dentaCloudApp')
 
 
 }])
+
+//.factory('CustomerFactory', ['$resource', 'baseURL', function($resource, baseURL) {
+
+//	var customerFac = {};
+
+//	customerFac.getCustomers = function() {
+//                return $resource(baseURL+"customers",null, null);
+//    };
+
+//	customerFac.deleteCustomer = function(customerId) {
+//		console.log(customerId);
+//	};
+
+
+//	return customerFac;
+
+
+//}])
+
+.service('CustomerService', [ '$http', 'baseURL', function($http, baseURL) {
+
+    return {
+        list: function() {
+            return $http.get(baseURL + 'customers');
+        },
+        delete: function(id) {
+          console.log("service", id);
+            return $http.delete(baseURL + 'customers/' + id);
+        }
+    };
+}])
+
 ;
