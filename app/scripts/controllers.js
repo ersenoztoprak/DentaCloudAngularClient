@@ -176,10 +176,10 @@ angular.module('dentaCloudApp')
 	
 }])
 
-.controller('CustomerDetailController', ['$state', '$scope', 'ngDialog', 'CustomerDetailFactory', function($state, $scope, ngDialog, CustomerDetailFactory) {
+.controller('CustomerDetailController', ['$state', '$scope', 'ngDialog', 'CustomerDetailService', function($state, $scope, ngDialog, CustomerDetailService) {
       
     $scope.saveCustomer = function() {
-        CustomerDetailFactory.save($scope.customer);
+        CustomerDetailService.save($scope.customer);
         ngDialog.close();
         $state.reload();
     };
