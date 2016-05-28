@@ -230,6 +230,38 @@ angular.module('dentaCloudApp')
 
 //}])
 
+.factory('CustomerDetailFactory', ['$resource', 'ngDialog', 'baseURL', function($resource, ngDialog, baseURL) {
+
+  var cusDetFac = {};
+
+  cusDetFac.save = function(customerData) {
+
+        $resource(baseURL + "customers")
+        .save(customerData,
+           function(response) {
+                 
+            ngDialog.openConfirm({ template: 'Sikert', plain: 'true'});
+             
+           },
+           function(response){
+            
+              var message = '<div class="ngdialog-message">' +
+                '<div><h3>Saving Unsuccessful</h3></div>' +
+                  '<div><p>' +  response.data.err.message + 
+                  '</p><p>' + response.data.err.name + '</p></div>';
+
+                ngDialog.openConfirm({ template: message, plain: 'true'});
+
+           }
+        
+        );
+    };
+
+    return cusDetFac;
+
+
+}])
+
 .service('CustomerService', [ '$http', 'baseURL', function($http, baseURL) {
 
     return {

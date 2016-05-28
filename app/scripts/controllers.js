@@ -137,7 +137,7 @@ angular.module('dentaCloudApp')
     };
 }])
 
-.controller('CustomerController', ['$scope', '$ngDialog', 'CustomerService', function($scope, ngDialog, CustomerService) {
+.controller('CustomerController', ['$scope', 'ngDialog', 'CustomerService', function($scope, ngDialog, CustomerService) {
 	  
 	$scope.customers = [];
 
@@ -157,6 +157,12 @@ angular.module('dentaCloudApp')
         });
     };
 
+    $scope.updateCustomer = function(customer) {
+
+        $scope.customer = customer;
+        $scope.openCustomerDialog();
+    };
+
     $scope.openCustomerDialog = function () {
         ngDialog.open({ 
             template: 'views/customerDetail.html', 
@@ -168,6 +174,16 @@ angular.module('dentaCloudApp')
 
     $scope.reloadCustomers();
 	
+}])
+
+.controller('CustomerDetailController', ['$state', '$scope', 'ngDialog', 'CustomerDetailFactory', function($state, $scope, ngDialog, CustomerDetailFactory) {
+      
+    $scope.saveCustomer = function() {
+        CustomerDetailFactory.save($scope.customer);
+        ngDialog.close();
+        $state.reload();
+    };
+    
 }])
 
 

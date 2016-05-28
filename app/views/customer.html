@@ -21,11 +21,12 @@
 	                    </tr>
 	                    <tbody>
                 			<tr ng-repeat="customer in customers">
-                    			
+                    			<td style="display:none;">{{customer._id}}</td>
                     			<td>{{customer.firstName}} {{customer.lastName}}</td>
                     			<td>{{customer.phone}}</td>
                     			<td>{{customer.email}}</td>
                     			<td>{{customer.address}}</td>
+                                <td><button ng-click="updateCustomer(customer)" class="btn btn-xs btn-edit" type="button"><i class="fa fa-edit"></i></button></td>
                     			<td><button ng-click="deleteCustomer(customer)" class="btn btn-xs btn-danger" type="button"><i class="fa fa-remove"></i></button></td>
                     			
                 			</tr>
