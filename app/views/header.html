@@ -11,7 +11,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                  
+
                     <li ng-class="{active: stateis('app')}">
                       <a ui-sref="app">
                         <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
@@ -30,8 +30,12 @@
                       </a>
                     </li>
 
-                     <li ng-class="{active: stateis('app.favorites')}"><a ui-sref="app.favorites">
-                     <i class="fa fa-heart-o"></i> Staff</a></li>
+                    <li ng-class="{active: stateis('app.staff')}">
+                      <a ui-sref="app.staff">
+                        <i class="fa fa-heart-o"></i> Staff
+                      </a>
+                    </li>
+                    
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-if="!loggedIn"><a ng-click="openLogin()">

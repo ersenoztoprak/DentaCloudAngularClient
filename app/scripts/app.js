@@ -41,6 +41,17 @@ angular.module('dentaCloudApp', ['ui.router','ngResource','ngDialog'])
                         controller  : 'ServiceController'                  
                     }
                 }
+            })
+
+            // route for the staff page
+            .state('app.staff', {
+                url:'staffs',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/staff.html',
+                        controller  : 'StaffController'                  
+                    }
+                }
             });   
     
         $urlRouterProvider.otherwise('/');

@@ -235,5 +235,53 @@ angular.module('dentaCloudApp')
     
 }])
 
+.controller('StaffController', ['$scope', 'ngDialog', 'StaffService', function($scope, ngDialog, StaffService) {
+      
+    $scope.staffs = [];
+
+    $scope.reloadStaffs = function() {
+        StaffService.list().then(function(response) {
+            $scope.staffs = response.data;
+        });
+    };
+
+    $scope.deleteStaff = function(staff) {
+
+        StaffService.delete(staff._id).then(function() {
+            var idx = $scope.staffs.indexOf(staff);
+            if (idx >= 0) {
+                $scope.staffs = $scope.staffs.splice(idx, 1);
+            }
+        });
+    };
+
+    $scope.updateStaff = function(staff) {
+
+        $scope.staff = staff;
+        $scope.openStaffDialog();
+    };
+
+    $scope.openStaffDialog = function () {
+        ngDialog.open({ 
+            template: 'views/staffDetail.html', 
+            scope: $scope, 
+            className: 'ngdialog-theme-default', 
+            controller:"StaffDetailController" 
+        });
+    };
+
+    $scope.reloadStaffs();
+    
+}])
+
+.controller('StaffDetailController', ['$state', '$scope', 'ngDialog', 'StaffDetailService', function($state, $scope, ngDialog, StaffDetailService) {
+      
+    $scope.saveStaff = function() {
+        StaffDetailService.save($scope.staff);
+        ngDialog.close();
+        $state.reload();
+    };
+    
+}])
 
 ;

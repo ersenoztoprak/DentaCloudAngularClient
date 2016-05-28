@@ -15,18 +15,14 @@
 	                        <th>
 	                            Email
 	                        </th>
-	                        <th>
-	                            Adress
-	                        </th>
 	                    </tr>
 	                    <tbody>
-                			<tr ng-repeat="customer in customers">
-                    			<td>{{customer.firstName}} {{customer.lastName}}</td>
-                    			<td>{{customer.phone}}</td>
-                    			<td>{{customer.email}}</td>
-                    			<td>{{customer.address}}</td>
-                                <td><button ng-click="updateCustomer(customer)" class="btn btn-xs btn-edit" type="button"><i class="fa fa-edit"></i></button></td>
-                    			<td><button ng-click="deleteCustomer(customer)" class="btn btn-xs btn-danger" type="button"><i class="fa fa-remove"></i></button></td>
+                			<tr ng-repeat="staff in staffs">
+                    			<td>{{staff.firstName}} {{staff.lastName}}</td>
+                    			<td>{{staff.phone}}</td>
+                    			<td>{{staff.email}}</td>
+                                <td><button ng-click="updateStaff(staff)" class="btn btn-xs btn-edit" type="button"><i class="fa fa-edit"></i></button></td>
+                    			<td><button ng-click="deleteStaff(staff)" class="btn btn-xs btn-danger" type="button"><i class="fa fa-remove"></i></button></td>
                     			
                 			</tr>
             			</tbody>
@@ -36,7 +32,7 @@
             </div>
              <div class="col-xs-12 col-sm-3">
                 <p style="padding:20px;"></p>
-                <button ng-click = 'openCustomerDialog()' class="btn btn-xs btn-primary pull-right" type="button">Add Customer</button>
+                <button ng-click = 'openStaffDialog()' class="btn btn-xs btn-primary pull-right" type="button">Add Staff</button>
             </div>
     </div> 
 </div>

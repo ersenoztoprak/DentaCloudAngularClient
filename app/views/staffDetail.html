@@ -1,0 +1,45 @@
+<div class="ngdialog-message">
+    <div class="">
+        <h3>Staff Card</h3>
+    </div>
+    
+    <div class="">&nbsp;</div>
+    
+    
+
+        <div class="">
+            <form role = "form" name = "staffForm" ng-submit="saveStaff()">
+                 <div class="form-group" ng-class="{ 'has-error' : staffForm.firstName.$error.required && !staffForm.firstName.$pristine }">
+                    <label class="sr-only" for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First Name"
+                        ng-model="staff.firstName" required>
+                    <span ng-show="staffForm.firstName.$error.required && !staffForm.firstName.$pristine" class="help-block">Firstname is required.</span>
+                 </div>
+                 
+                 <div class="form-group" ng-class="{ 'has-error' : staffForm.lastName.$error.required && !staffForm.lastName.$pristine }">
+                    <label class="sr-only" for="lastName">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Last Name"
+                        ng-model="staff.lastName" required>
+                    <span ng-show="staffForm.lastName.$error.required && !staffForm.lastName.$pristine" class="help-block">Lastname is required.</span>
+                 </div>
+
+                 <div class="form-group" ng-class="{ 'has-error' : staffForm.phone.$error.required && !staffForm.phone.$pristine }">
+                    <label class="sr-only" for="phone">Phone</label>
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone"
+                        ng-model="staff.phone" ui-mask="(999) 999-99-99" required>
+                    <span ng-show="staffForm.phone.$error.required && !staffForm.phone.$pristine" class="help-block">Phone is required.</span>
+                 </div>
+
+                 <div class="form-group"  ng-class="{ 'has-error has-feedback' : staffForm.emailid.$invalid && !staffForm.emailid.$pristine }">
+                    <label class="sr-only" for="emailid" >Email</label>
+                    <input type="email" class="form-control" id="emailid" name="emailid" placeholder="Email" ng-model="staff.email" required>
+                    <span ng-show="staffForm.emailid.$invalid && !staffForm.emailid.$pristine" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span ng-show="staffForm.emailid.$invalid && !staffForm.emailid.$pristine" class="help-block">Enter a valid email address.</span>
+                    <span ng-show="staffForm.emailid.$error.required && !staffForm.emailid.$pristine" class="help-block">Enter a valid email address.</span>    
+                 </div>   
+                
+                 <button type="submit" class="btn btn-info btn-sm" ng-disabled="staffForm.$invalid">Save</button>
+                 <button type="button" class="btn btn-default btn-sm" ng-click=closeThisDialog("Cancel")>Cancel</button>
+            </form>
+        </div>
+</div>

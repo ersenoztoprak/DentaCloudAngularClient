@@ -286,8 +286,37 @@ angular.module('dentaCloudApp')
             return $http.get(baseURL + 'services');
         },
         delete: function(id) {
-          console.log("service", id);
             return $http.delete(baseURL + 'services/' + id);
+        }
+    };
+}])
+
+.service('StaffDetailService', ['$http', 'ngDialog', 'baseURL', function($http, ngDialog, baseURL) {
+
+    return {
+        save: function (staffData) {
+          if (staffData._id) {
+            return $http.put(baseURL + 'staffs/' + staffData._id, staffData);
+          }
+          else {
+            return $http.post(baseURL + 'staffs', staffData);
+          }
+        }
+    };
+
+
+
+
+}])
+
+.service('StaffService', [ '$http', 'baseURL', function($http, baseURL) {
+
+    return {
+        list: function() {
+            return $http.get(baseURL + 'staffs');
+        },
+        delete: function(id) {
+            return $http.delete(baseURL + 'staffs/' + id);
         }
     };
 }])
