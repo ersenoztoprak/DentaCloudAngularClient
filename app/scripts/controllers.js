@@ -186,5 +186,54 @@ angular.module('dentaCloudApp')
     
 }])
 
+.controller('ServiceController', ['$scope', 'ngDialog', 'ServicesService', function($scope, ngDialog, ServicesService) {
+      
+    $scope.services = [];
+
+    $scope.reloadServices = function() {
+        ServicesService.list().then(function(response) {
+            $scope.services = response.data;
+        });
+    };
+
+    $scope.deleteService = function(service) {
+
+        ServicesService.delete(service._id).then(function() {
+            var idx = $scope.services.indexOf(service);
+            if (idx >= 0) {
+                $scope.services = $scope.services.splice(idx, 1);
+            }
+        });
+    };
+
+    $scope.updateService = function(service) {
+
+        $scope.service = service;
+        $scope.openServiceDialog();
+    };
+
+    $scope.openServiceDialog = function () {
+        ngDialog.open({ 
+            template: 'views/serviceDetail.html', 
+            scope: $scope, 
+            className: 'ngdialog-theme-default', 
+            controller:"ServiceDetailController" 
+        });
+    };
+
+    $scope.reloadServices();
+    
+}])
+
+.controller('ServiceDetailController', ['$state', '$scope', 'ngDialog', 'ServiceDetailService', function($state, $scope, ngDialog, ServiceDetailService) {
+      
+    $scope.saveService = function() {
+        ServiceDetailService.save($scope.service);
+        ngDialog.close();
+        $state.reload();
+    };
+    
+}])
+
 
 ;

@@ -1,0 +1,42 @@
+<div class="container">
+
+     <div class="row row-content">
+        <div class="col-xs-12 col-sm-9">
+
+            <div class="table-responsive">
+	            <table class="table table-striped">
+	                    <tr>
+	                        <th>
+	                            Name
+	                        </th>
+	                        <th>
+	                            Price
+	                        </th>
+	                        <th>
+	                            Time(min)
+	                        </th>
+	                        <th>
+	                            Description
+	                        </th>
+	                    </tr>
+	                    <tbody>
+                			<tr ng-repeat="service in services">
+                    			<td>{{service.name}}</td>
+                    			<td>{{service.price}}</td>
+                    			<td>{{service.time}}</td>
+                    			<td>{{service.description}}</td>
+                                <td><button ng-click="updateService(service)" class="btn btn-xs btn-edit" type="button"><i class="fa fa-edit"></i></button></td>
+                    			<td><button ng-click="deleteService(service)" class="btn btn-xs btn-danger" type="button"><i class="fa fa-remove"></i></button></td>
+                    			
+                			</tr>
+            			</tbody>
+	                    
+	                </table>
+                </div>
+            </div>
+             <div class="col-xs-12 col-sm-3">
+                <p style="padding:20px;"></p>
+                <button ng-click = 'openServiceDialog()' class="btn btn-xs btn-primary pull-right" type="button">Add Service</button>
+            </div>
+    </div> 
+</div>

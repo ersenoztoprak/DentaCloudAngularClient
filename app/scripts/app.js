@@ -20,7 +20,7 @@ angular.module('dentaCloudApp', ['ui.router','ngResource','ngDialog'])
 
             })
 
-            // route for the aboutus page
+            // route for the customer page
             .state('app.customer', {
                 url:'customers',
                 views: {
@@ -29,9 +29,19 @@ angular.module('dentaCloudApp', ['ui.router','ngResource','ngDialog'])
                         controller  : 'CustomerController'                  
                     }
                 }
-            });
+            })
         
-           
+            
+            // route for the service page
+            .state('app.service', {
+                url:'services',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/service.html',
+                        controller  : 'ServiceController'                  
+                    }
+                }
+            });   
     
         $urlRouterProvider.otherwise('/');
     })

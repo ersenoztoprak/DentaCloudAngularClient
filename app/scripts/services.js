@@ -230,7 +230,7 @@ angular.module('dentaCloudApp')
 
 //}])
 
-.factory('CustomerDetailService', ['$http', 'ngDialog', 'baseURL', function($http, ngDialog, baseURL) {
+.service('CustomerDetailService', ['$http', 'ngDialog', 'baseURL', function($http, ngDialog, baseURL) {
 
     return {
         save: function (customerData) {
@@ -257,6 +257,37 @@ angular.module('dentaCloudApp')
         delete: function(id) {
           console.log("service", id);
             return $http.delete(baseURL + 'customers/' + id);
+        }
+    };
+}])
+
+.service('ServiceDetailService', ['$http', 'ngDialog', 'baseURL', function($http, ngDialog, baseURL) {
+
+    return {
+        save: function (serviceData) {
+          if (serviceData._id) {
+            return $http.put(baseURL + 'services/' + serviceData._id, serviceData);
+          }
+          else {
+            return $http.post(baseURL + 'services', serviceData);
+          }
+        }
+    };
+
+
+
+
+}])
+
+.service('ServicesService', [ '$http', 'baseURL', function($http, baseURL) {
+
+    return {
+        list: function() {
+            return $http.get(baseURL + 'services');
+        },
+        delete: function(id) {
+          console.log("service", id);
+            return $http.delete(baseURL + 'services/' + id);
         }
     };
 }])
