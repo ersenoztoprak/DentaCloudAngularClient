@@ -144,36 +144,6 @@ angular.module('dentaCloudApp')
 
 }])
 
-.factory('CustomerFactory', ['$resource', 'baseURL', function($resource, baseURL) {
-
-	return $resource(baseURL + "customers", null, {
-            'update': {
-                method: 'PUT'
-            }
-        });
-
-}])
-
-.factory('ServiceFactory', ['$resource', 'baseURL', function($resource, baseURL) {
-
-	return $resource(baseURL + "services", null, {
-            'update': {
-                method: 'PUT'
-            }
-        });
-
-}])
-
-.factory('StaffFactory', ['$resource', 'baseURL', function($resource, baseURL) {
-
-	return $resource(baseURL + "staffs", null, {
-            'update': {
-                method: 'PUT'
-            }
-        });
-
-}])
-
 .factory('AppoitmnetFactory', ['$resource', 'ngDialog', 'baseURL', function($resource, ngDialog, baseURL) {
 
 	var appFac = {};

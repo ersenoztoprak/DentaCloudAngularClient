@@ -88,11 +88,11 @@ angular.module('dentaCloudApp')
     
 }])
 
-.controller('AppoitmnetController', ['$state', '$scope', 'ngDialog', 'StaffFactory', 'ServiceFactory', 'CustomerService', 'AppoitmnetFactory', function($state, $scope, ngDialog, StaffFactory, ServiceFactory, CustomerService, AppoitmnetFactory) {
+.controller('AppoitmnetController', ['$state', '$scope', 'ngDialog', 'StaffService', 'ServicesService', 'CustomerService', 'AppoitmnetFactory', function($state, $scope, ngDialog, StaffService, ServicesService, CustomerService, AppoitmnetFactory) {
 
 	$scope.now = new Date();
 
-	StaffFactory.query(
+	StaffService.list.then(
         function (response) {
             $scope.staffs = response;
         },
@@ -100,7 +100,7 @@ angular.module('dentaCloudApp')
             $scope.message = "Error: " + response.status + " " + response.statusText;
         });
 
-	ServiceFactory.query(
+	ServiceService.list.then(
         function (response) {
             $scope.services = response;
         },
@@ -150,10 +150,7 @@ angular.module('dentaCloudApp')
     $scope.deleteCustomer = function(customer) {
 
         CustomerService.delete(customer._id).then(function() {
-            var idx = $scope.customers.indexOf(customer);
-            if (idx >= 0) {
-                $scope.customers = $scope.customers.splice(idx, 1);
-            }
+            $scope.reloadCustomers();
         });
     };
 
@@ -181,7 +178,7 @@ angular.module('dentaCloudApp')
     $scope.saveCustomer = function() {
         CustomerDetailService.save($scope.customer);
         ngDialog.close();
-        $state.reload();
+        $scope.reloadCustomers();
     };
     
 }])
@@ -199,10 +196,7 @@ angular.module('dentaCloudApp')
     $scope.deleteService = function(service) {
 
         ServicesService.delete(service._id).then(function() {
-            var idx = $scope.services.indexOf(service);
-            if (idx >= 0) {
-                $scope.services = $scope.services.splice(idx, 1);
-            }
+            $scope.reloadServices();
         });
     };
 
@@ -230,7 +224,7 @@ angular.module('dentaCloudApp')
     $scope.saveService = function() {
         ServiceDetailService.save($scope.service);
         ngDialog.close();
-        $state.reload();
+        $scope.reloadServices();
     };
     
 }])
@@ -248,10 +242,7 @@ angular.module('dentaCloudApp')
     $scope.deleteStaff = function(staff) {
 
         StaffService.delete(staff._id).then(function() {
-            var idx = $scope.staffs.indexOf(staff);
-            if (idx >= 0) {
-                $scope.staffs = $scope.staffs.splice(idx, 1);
-            }
+            $scope.reloadStaffs();
         });
     };
 
@@ -279,7 +270,7 @@ angular.module('dentaCloudApp')
     $scope.saveStaff = function() {
         StaffDetailService.save($scope.staff);
         ngDialog.close();
-        $state.reload();
+        $scope.reloadStaffs();
     };
     
 }])
