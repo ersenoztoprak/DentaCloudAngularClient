@@ -2,7 +2,7 @@
 
 
 angular.module('dentaCloudApp')
-.constant("baseURL", "http://localhost:3000/")
+.constant("baseURL", "http://162.243.76.225:3000/")
 .factory('$localStorage', ['$window', function ($window) {
     return {
         store: function (key, value) {
@@ -59,9 +59,7 @@ angular.module('dentaCloudApp')
     $http.defaults.headers.common['x-access-token'] = authToken;
     $localStorage.remove(TOKEN_KEY);
   }
- 
   
-     
     authFac.login = function(loginData) {
         
         $resource(baseURL + "users/login")
@@ -144,7 +142,6 @@ angular.module('dentaCloudApp')
             }
         });
 
-
 }])
 
 .factory('CustomerFactory', ['$resource', 'baseURL', function($resource, baseURL) {
@@ -154,7 +151,6 @@ angular.module('dentaCloudApp')
                 method: 'PUT'
             }
         });
-
 
 }])
 
@@ -166,7 +162,6 @@ angular.module('dentaCloudApp')
             }
         });
 
-
 }])
 
 .factory('StaffFactory', ['$resource', 'baseURL', function($resource, baseURL) {
@@ -176,7 +171,6 @@ angular.module('dentaCloudApp')
                 method: 'PUT'
             }
         });
-
 
 }])
 
@@ -189,9 +183,7 @@ angular.module('dentaCloudApp')
         $resource(baseURL + "appoitments")
         .save(appoitmentData,
            function(response) {
-           		   
-           	ngDialog.openConfirm({ template: 'Sikert', plain: 'true'});
-             
+           	 console.log('Appoitment created!');
            },
            function(response){
             
@@ -209,26 +201,7 @@ angular.module('dentaCloudApp')
 
     return appFac;
 
-
 }])
-
-//.factory('CustomerFactory', ['$resource', 'baseURL', function($resource, baseURL) {
-
-//	var customerFac = {};
-
-//	customerFac.getCustomers = function() {
-//                return $resource(baseURL+"customers",null, null);
-//    };
-
-//	customerFac.deleteCustomer = function(customerId) {
-//		console.log(customerId);
-//	};
-
-
-//	return customerFac;
-
-
-//}])
 
 .service('CustomerDetailService', ['$http', 'ngDialog', 'baseURL', function($http, ngDialog, baseURL) {
 
@@ -242,9 +215,6 @@ angular.module('dentaCloudApp')
           }
         }
     };
-
-
-
 
 }])
 
@@ -274,9 +244,6 @@ angular.module('dentaCloudApp')
         }
     };
 
-
-
-
 }])
 
 .service('ServicesService', [ '$http', 'baseURL', function($http, baseURL) {
@@ -303,9 +270,6 @@ angular.module('dentaCloudApp')
           }
         }
     };
-
-
-
 
 }])
 
