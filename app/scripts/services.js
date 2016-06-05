@@ -2,7 +2,7 @@
 
 
 angular.module('dentaCloudApp')
-.constant("baseURL", "http://162.243.76.225:3000/")
+.constant("baseURL", "http://localhost:3000/")
 .factory('$localStorage', ['$window', function ($window) {
     return {
         store: function (key, value) {
@@ -228,7 +228,7 @@ angular.module('dentaCloudApp')
     };
 }])
 
-.service('StaffDetailService', ['$http', 'ngDialog', 'baseURL', function($http, ngDialog, baseURL) {
+.service('StaffDetailService', ['$http', 'baseURL', function($http, baseURL) {
 
     return {
         save: function (staffData) {

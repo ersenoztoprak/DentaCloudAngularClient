@@ -92,17 +92,17 @@ angular.module('dentaCloudApp')
 
 	$scope.now = new Date();
 
-	StaffService.list.then(
+	StaffService.list().then(
         function (response) {
-            $scope.staffs = response;
+            $scope.staffs = response.data;
         },
         function (response) {
             $scope.message = "Error: " + response.status + " " + response.statusText;
         });
 
-	ServiceService.list.then(
+	ServicesService.list().then(
         function (response) {
-            $scope.services = response;
+            $scope.services = response.data;
         },
         function (response) {
             $scope.message = "Error: " + response.status + " " + response.statusText;
