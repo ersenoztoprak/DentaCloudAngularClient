@@ -2,7 +2,7 @@
 
 
 angular.module('dentaCloudApp')
-.constant("baseURL", "http://localhost:3000/")
+.constant("baseURL", "http://162.243.76.225:3000/")
 .factory('$localStorage', ['$window', function ($window) {
     return {
         store: function (key, value) {
