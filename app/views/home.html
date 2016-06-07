@@ -26,7 +26,8 @@
                     			<td>{{schedule.customer.firstName}} {{schedule.customer.lastName}}</td>
                     			<td>{{schedule.staff.firstName}} {{schedule.staff.lastName}}</td>
                     			<td>{{schedule.service.name}}</td>
-                    			
+                    			<td><button ng-click="updateAppointment(schedule)" class="btn btn-xs btn-edit" type="button"><i class="fa fa-edit"></i></button></td>
+                                <td><button ng-click="deleteAppointment(schedule)" class="btn btn-xs btn-danger" type="button"><i class="fa fa-remove"></i></button></td>
                 			</tr>
             			</tbody>
 	                    

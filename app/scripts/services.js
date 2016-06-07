@@ -2,7 +2,7 @@
 
 
 angular.module('dentaCloudApp')
-.constant("baseURL", "http://162.243.76.225:3000/")
+.constant("baseURL", "http://localhost:4000/")
 .factory('$localStorage', ['$window', function ($window) {
     return {
         store: function (key, value) {
@@ -134,42 +134,27 @@ angular.module('dentaCloudApp')
     
 }])
 
-.factory('HomeFactory', ['$resource', 'baseURL', function($resource, baseURL) {
+.service('AppoitmnetService', ['$http', 'ngDialog', 'baseURL', function($http, ngDialog, baseURL) {
 
-	return $resource(baseURL + "appoitments", null, {
-            'update': {
-                method: 'PUT'
-            }
-        });
+	return {
+    book: function(appoitmentData) {
 
-}])
+        if (appoitmentData._id) {
+            return $http.put(baseURL + 'appoitments/' + appoitmentData._id, appoitmentData);
+        }
+        else {
+            return $http.post(baseURL + 'appoitments', appoitmentData);
+        }
+    },
 
-.factory('AppoitmnetFactory', ['$resource', 'ngDialog', 'baseURL', function($resource, ngDialog, baseURL) {
+    delete: function(id) {
+        return $http.delete(baseURL + 'appoitments/' + id);
+    },
 
-	var appFac = {};
-
-	appFac.book = function(appoitmentData) {
-
-        $resource(baseURL + "appoitments")
-        .save(appoitmentData,
-           function(response) {
-           	 console.log('Appoitment created!');
-           },
-           function(response){
-            
-              var message = '<div class="ngdialog-message">' +
-                '<div><h3>Booking Unsuccessful</h3></div>' +
-                  '<div><p>' +  response.data.err.message + 
-                  '</p><p>' + response.data.err.name + '</p></div>';
-
-                ngDialog.openConfirm({ template: message, plain: 'true'});
-
-           }
-        
-        );
-    };
-
-    return appFac;
+    list: function() {
+      return $http.get(baseURL + 'appoitments');
+    }
+  };
 
 }])
 

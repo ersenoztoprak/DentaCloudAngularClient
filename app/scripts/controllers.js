@@ -31,6 +31,7 @@ angular.module('dentaCloudApp')
      $rootScope.$on('login:Successful', function () {
         $scope.loggedIn = AuthFactory.isAuthenticated();
         $scope.username = AuthFactory.getUsername();
+        $state.go('app');
     });
 
      $scope.stateis = function(curstate) {
@@ -65,17 +66,15 @@ angular.module('dentaCloudApp')
     }; 
 }])
 
-.controller('HomeController', ['$scope', 'ngDialog' ,'HomeFactory',  function ($scope, ngDialog, HomeFactory) {
+.controller('HomeController', ['$scope', 'ngDialog' , 'AppoitmnetService',  function ($scope, ngDialog, AppoitmnetService) {
     $scope.message = "Loading ...";
     
 
-	HomeFactory.query(
-        function (response) {
-            $scope.schedules = response;
-        },
-        function (response) {
-            $scope.message = "Error: " + response.status + " " + response.statusText;
+	$scope.reloadSchedules = function() {
+        AppoitmnetService.list().then(function (response) {
+            $scope.schedules = response.data;
         });
+    };
 
     $scope.openAppoitment = function () {
         ngDialog.open({ 
@@ -84,11 +83,36 @@ angular.module('dentaCloudApp')
         	className: 'ngdialog-theme-default', 
         	controller:"AppoitmnetController" 
         });
-    }; 
+    };
+
+    $scope.deleteAppointment = function(schedule) {
+
+        AppoitmnetService.delete(schedule._id).then(function() {
+            $scope.reloadSchedules();
+        });
+    };
+
+    $scope.openAppointmentDialog = function () {
+        ngDialog.open({ 
+            template: 'views/appoitment.html', 
+            scope: $scope, 
+            className: 'ngdialog-theme-default', 
+            controller:"AppoitmnetController" 
+        });
+    };
+
+    $scope.updateAppointment = function(schedule) {
+        console.log(schedule);
+        $scope.appoitment = schedule;
+        $scope.openAppointmentDialog();
+    };
+
+
+    $scope.reloadSchedules();
     
 }])
 
-.controller('AppoitmnetController', ['$state', '$scope', 'ngDialog', 'StaffService', 'ServicesService', 'CustomerService', 'AppoitmnetFactory', function($state, $scope, ngDialog, StaffService, ServicesService, CustomerService, AppoitmnetFactory) {
+.controller('AppoitmnetController', ['$state', '$scope', 'ngDialog', 'StaffService', 'ServicesService', 'CustomerService', 'AppoitmnetService', function($state, $scope, ngDialog, StaffService, ServicesService, CustomerService, AppoitmnetService) {
 
 	$scope.now = new Date();
 
@@ -116,7 +140,7 @@ angular.module('dentaCloudApp')
 
 	$scope.bookAppoitment = function() {
 		$scope.appoitment.date = Math.round(new Date($scope.appoitment.date).getTime()/1000);
-		AppoitmnetFactory.book($scope.appoitment);
+		AppoitmnetService.book($scope.appoitment);
 		ngDialog.close();
 		$state.reload();
 	};
