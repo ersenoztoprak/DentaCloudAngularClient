@@ -26,6 +26,7 @@ angular.module('dentaCloudApp')
     	AuthFactory.logout();
         $scope.loggedIn = false;
         $scope.username = '';
+        $state.go('app');
     };
 
      $rootScope.$on('login:Successful', function () {
